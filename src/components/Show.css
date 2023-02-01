@@ -1,0 +1,13 @@
+ol {
+    padding: 1vmax;
+    width: 50%;
+    margin: auto;
+    border-radius: 0.3vmax;
+    background-color: rgb(232, 232, 232);
+    list-style: none;
+    font: 600 1.5vmax helvetica;
+}
+
+li {
+    font-size: 1.5vmax;
+}

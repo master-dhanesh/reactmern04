@@ -1,12 +1,17 @@
 import React from "react";
+import { useAlert } from "react-alert";
+import "./Show.css";
 
 const Show = (props) => {
+    const alert = useAlert();
+
     const { tasks, setTasks } = props;
 
     const taskdelete = (i) => {
         const copytasks = [...tasks];
         copytasks.splice(i, 1);
         setTasks(copytasks);
+        alert.show("Task removed!");
     };
 
     let tasklist = <h1>No Tasks Found!</h1>;

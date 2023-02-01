@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useAlert } from "react-alert";
+import css from "./Create.module.css";
 
 const Create = (props) => {
-    console.log(props);
+    const alert = useAlert();
+
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const { tasks, setTasks } = props;
@@ -10,14 +13,27 @@ const Create = (props) => {
         e.preventDefault();
         const task = { title, desc };
 
+        if (!title.trim() || !desc.trim()) {
+            alert.info("No input field must empty!");
+            return;
+        }
+
         setTasks([...tasks, task]);
+        alert.success("Task Created!");
         setTitle("");
         setDesc("");
     };
 
+    const formcss = {
+        border: "1px solid black",
+        padding: "1vmax",
+        width: "50%",
+    };
+
     return (
-        <form onSubmit={submithandler}>
+        <form style={formcss} onSubmit={submithandler}>
             <input
+                className={css.input}
                 type="text"
                 placeholder="Title"
                 onChange={(e) => setTitle(e.target.value)}
@@ -29,7 +45,9 @@ const Create = (props) => {
                 onChange={(e) => setDesc(e.target.value)}
                 value={desc}
             />
-            <button>Create Task</button>
+            <button style={{ backgroundColor: "red", fontSize: "1.1vmax" }}>
+                Create Task
+            </button>
         </form>
     );
 };
