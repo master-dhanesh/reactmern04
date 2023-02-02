@@ -1,38 +1,25 @@
 import React, { useEffect, useState } from "react";
 
 const App = () => {
-    const [user, setUser] = useState("user...");
-    const [admin, setAdmin] = useState("admin...");
+    const [images, setImages] = useState(null);
+
+    const getImages = () => {
+        fetch("https://picsum.photos/v2/list")
+            .then((d) => d.json())
+            .then((data) => setImages(data))
+            .catch((err) => console.log(err));
+    };
+
     useEffect(() => {
-        console.log("inside useeffect");
-
-        return () => {
-            console.log("deleting/refreshing.....");
-        };
-    }, [admin]);
-
-    // useEffect(() => {
-    //     console.log("Create");
-    //     return () => {
-    //         console.log("delete");
-    //     };
-    // }, ["updating"]);
-
-    const userchange = () => {
-        setUser("Heyy User");
-    };
-
-    const adminchange = () => {
-        setAdmin("Heyy admin");
-    };
+        getImages();
+    }, [images]);
 
     return (
         <div>
-            <h1>{user}</h1>
-            <button onClick={userchange}>change user</button>
-            <hr />
-            <h1>{admin}</h1>
-            <button onClick={adminchange}>change admin</button>
+            {/*  */}
+            <button onClick={getImages}>Get Images</button>
+            {images ? JSON.stringify(images) : "loading..."}
+            {/*  */}
         </div>
     );
 };
