@@ -1,57 +1,40 @@
-import React, { Component } from "react";
-import Show from "./components/Show";
+import React, { useEffect, useState } from "react";
 
-class App extends Component {
-    // state = {};
-    // creation - mounting
-    constructor(props) {
-        // to init compoennt state/data
-        super(props);
-        console.log("[App.js] constructor");
-        this.state = {
-            images: [],
-            show: false,
+const App = () => {
+    const [user, setUser] = useState("user...");
+    const [admin, setAdmin] = useState("admin...");
+    useEffect(() => {
+        console.log("inside useeffect");
+
+        return () => {
+            console.log("deleting/refreshing.....");
         };
-    }
+    }, [admin]);
 
-    render() {
-        // to load view(html/css without original data)
-        // render will reload everytime when the view changes due to data
-        console.log("[App.js] render");
+    // useEffect(() => {
+    //     console.log("Create");
+    //     return () => {
+    //         console.log("delete");
+    //     };
+    // }, ["updating"]);
 
-        return (
-            <div>
-                <h1>This is App.js</h1>
-                <hr />
-                {this.state.show ? <Show /> : "No Show"}
-                <button
-                    onClick={() => this.setState({ show: !this.state.show })}
-                >
-                    Click
-                </button>
-            </div>
-        );
-    }
+    const userchange = () => {
+        setUser("Heyy User");
+    };
 
-    componentDidMount() {
-        // data calling through api/internet
-        // runs one in a lifetime in a component
-        // as the data arrives, set the data into the state
-        fetch("https://picsum.photos/v2/list")
-            .then((d) => d.json())
-            .then((data) => {
-                // console.log(data);
-                this.setState({ images: data });
-            });
-        console.log("[App.js] componentdidmount");
-    }
-    // -------------------------------------------------------
+    const adminchange = () => {
+        setAdmin("Heyy admin");
+    };
 
-    componentDidUpdate(prevProps, prevState) {
-        console.log(prevProps, prevState);
-        console.log("[App.js] componentdidupdate");
-    }
-    // ------------------------------------------------------
-}
+    return (
+        <div>
+            <h1>{user}</h1>
+            <button onClick={userchange}>change user</button>
+            <hr />
+            <h1>{admin}</h1>
+            <button onClick={adminchange}>change admin</button>
+        </div>
+    );
+};
 
 export default App;
