@@ -1,0 +1,14 @@
+ul[aria-label="Pagination"] {
+    display: flex;
+    list-style: none;
+}
+
+ul[aria-label="Pagination"] > li {
+    padding: 0 1vmax;
+    font-weight: 600;
+}
+
+.selected {
+    background-color: tomato;
+    color: white;
+}
