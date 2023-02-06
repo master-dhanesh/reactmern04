@@ -1,14 +1,22 @@
-ul[aria-label="Pagination"] {
+.pagination {
     display: flex;
-    list-style: none;
+    justify-content: center;
 }
 
-ul[aria-label="Pagination"] > li {
+.pagination > li {
     padding: 0 1vmax;
-    font-weight: 600;
 }
 
-.selected {
+.pagination .selected {
+    color: #fff;
     background-color: tomato;
-    color: white;
+}
+
+.previous > a,
+.next > a {
+    text-decoration: none;
+    color: white !important;
+    background-color: black;
+    padding: 0.3vmax 0.5vmax;
+    font-weight: 900;
 }
