@@ -5,6 +5,7 @@ import App from "./App";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { BrowserRouter } from "react-router-dom";
+import Datacontext from "./context/Datacontext";
 
 // optional configuration
 const options = {
@@ -19,9 +20,11 @@ const options = {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <BrowserRouter>
-        <AlertProvider template={AlertTemplate} {...options}>
-            <App />
-        </AlertProvider>
-    </BrowserRouter>
+    <Datacontext>
+        <BrowserRouter>
+            <AlertProvider template={AlertTemplate} {...options}>
+                <App />
+            </AlertProvider>
+        </BrowserRouter>
+    </Datacontext>
 );

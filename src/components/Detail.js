@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
+import Dets from "./Dets";
 
 const Detail = () => {
     const params = useParams();
@@ -13,6 +14,8 @@ const Detail = () => {
                 Doloremque, corporis?
             </p>
             <Link to="/user">Back</Link>
+            <hr />
+            <Dets />
         </div>
     );
 };
