@@ -1,23 +1,14 @@
-import React, { useState } from "react";
-import Nav from "./components/Nav";
-import Home from "./components/Home";
-import About from "./components/About";
-import User from "./components/User";
-import Detail from "./components/Detail";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import Create from "./components/Create";
+import Show from "./components/Show";
 
 const App = () => {
     return (
-        <div className="container">
-            <Nav />
+        <div className="mt-5 container">
+            <h1>This is App.js Component heading.</h1>
+            <Show />
             <hr />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/user" element={<User />}>
-                    <Route path="/user/:name" element={<Detail />} />
-                </Route>
-            </Routes>
+            <Create />
         </div>
     );
 };
