@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    decrementAction,
-    incrementAction,
-    incrementByAmountAction,
-} from "./counterActions";
+    decrementaction,
+    incrementaction,
+    incrementbyamountaction,
+} from "./counterAction";
 
 const initialState = {
     value: 0,
@@ -13,13 +13,12 @@ export const counterSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
-        increment: incrementAction,
-        decrement: decrementAction,
-        incrementByAmount: incrementByAmountAction,
+        increment: incrementaction,
+        decrement: decrementaction,
+        incrementByAmount: incrementbyamountaction,
     },
 });
 
-// Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 export default counterSlice.reducer;
