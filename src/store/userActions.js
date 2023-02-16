@@ -1,7 +1,7 @@
-exports.creatuserAction = (state, action) => {
+export const creatuserAction = (state, action) => {
     state.users.push(action.payload);
 };
 
-exports.deleteuserAction = (state, action) => {
+export const deleteuserAction = (state, action) => {
     state.users = state.users.filter((user) => user.id !== action.payload);
 };
