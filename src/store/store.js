@@ -1,10 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice";
-import imageReducer from "./imageSlice";
+import countReducer from "./reducers/counterSlice";
 
 export const store = configureStore({
     reducer: {
-        userReducer,
-        imageReducer,
+        countReducer,
     },
 });
