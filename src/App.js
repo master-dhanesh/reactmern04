@@ -1,22 +1,18 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementByAmount } from "./store/reducers/counterSlice";
+import { Route, Routes } from "react-router-dom";
+import { toast } from "react-toastify";
+import Home from "./components/Home";
+import Signin from "./components/Signin";
+import Signup from "./components/Signup";
 
 const App = () => {
-    const { value } = useSelector((state) => state.countReducer);
-    const dispatch = useDispatch();
-    const add = () => {
-        dispatch(increment());
-    };
-
-    const addmore = () => {
-        dispatch(incrementByAmount(5));
-    };
+    const notify = () => toast("Wow so easy!");
     return (
-        <div>
-            <h2>{value}</h2>
-            <button onClick={add}>+1</button>
-            <button onClick={addmore}>Incrementbyvalue</button>
+        <div className="container mt-5">
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signin" element={<Signin />} />
+            </Routes>
         </div>
     );
 };
