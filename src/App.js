@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { toast } from "react-toastify";
 import Home from "./components/Home";
+import Profile from "./components/Profile";
 import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 
@@ -12,6 +13,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signin" element={<Signin />} />
+                <Route path="/profile/:id" element={<Profile />} />
             </Routes>
         </div>
     );

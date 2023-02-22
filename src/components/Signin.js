@@ -1,27 +1,33 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../firebase/config";
-
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 const Signin = () => {
+    const db = getFirestore(app);
+    const navigate = useNavigate();
     const auth = getAuth(app);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    const signinhandler = (e) => {
+    const signinhandler = async (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
+        try {
+            const user = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            // const docRef = doc(db, "users", user.user.email);
+            // const docSnap = await getDoc(docRef);
+            // console.log(docSnap.data());
+
+            // navigate("/profile/" + user.user.email);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
