@@ -3,7 +3,15 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../firebase/config";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    getFirestore,
+    query,
+    where,
+} from "firebase/firestore";
 const Signin = () => {
     const db = getFirestore(app);
     const navigate = useNavigate();
@@ -20,11 +28,14 @@ const Signin = () => {
                 password
             );
 
-            // const docRef = doc(db, "users", user.user.email);
-            // const docSnap = await getDoc(docRef);
-            // console.log(docSnap.data());
-
-            // navigate("/profile/" + user.user.email);
+            const q = query(
+                collection(db, "users"),
+                where("email", "==", user.user.email)
+            );
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                navigate("/profile/" + doc.id);
+            });
         } catch (error) {
             console.log(error);
         }

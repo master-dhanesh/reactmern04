@@ -31,7 +31,11 @@ const Profile = () => {
                             backgroundPosition: "center",
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
-                            backgroundImage: `url(https://images.unsplash.com/photo-1677026538602-b0985abfc66e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80)`,
+                            backgroundImage: `url(${
+                                user && user.image
+                                    ? user.image
+                                    : "https://images.unsplash.com/photo-1677026538602-b0985abfc66e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                            })`,
                         }}
                     ></div>
 
