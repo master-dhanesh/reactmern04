@@ -1,71 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import app from "./firebase/firebase";
 import {
-    getDownloadURL,
-    getStorage,
-    ref,
-    uploadBytes,
-    deleteObject,
-    listAll,
-} from "firebase/storage";
+    createUserWithEmailAndPassword,
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+} from "firebase/auth";
+import { useEffect } from "react";
+
 const App = () => {
-    const storage = getStorage(app);
+    const auth = getAuth(app);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const createStorage = async (e) => {
+    const signup = async () => {
         try {
-            const file = e.target.files[0];
-            const storageRef = ref(storage, file.name);
-            await uploadBytes(storageRef, file);
-            const downloadurl = await getDownloadURL(storageRef);
-            console.log(downloadurl);
+            const user = await createUserWithEmailAndPassword(
+                auth,
+                "rahul@kumar.com",
+                "123456"
+            );
+            // console.log(user.user.uid, "->", user.user.email);
         } catch (error) {
             console.log(error);
         }
     };
-
-    const readallStorage = async () => {
-        const listRef = ref(storage, "");
-
-        listAll(listRef)
-            .then((res) => {
-                res.prefixes.forEach((folderRef) => {
-                    console.log(folderRef);
-                });
-                res.items.forEach((itemRef) => {
-                    console.log(itemRef);
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const updateStorage = async () => {};
-
-    const deleteStorage = async () => {
+    const signin = async () => {
         try {
-            const storageRef = ref(storage, "model11.jpg");
-            await deleteObject(storageRef);
-            console.log("Image Deleted!");
+            const user = await signInWithEmailAndPassword(
+                auth,
+                "rahul@kumar.com",
+                "123456"
+            );
+            // console.log(user.user.uid, "->", user.user.email);
+            setIsLoggedIn(true);
         } catch (error) {
             console.log(error);
         }
     };
+    const signout = async () => {
+        try {
+            await signOut(auth);
+            setIsLoggedIn(false);
+            // console.log("user logged out");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const session = async () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                setIsLoggedIn(true);
+                // console.log(uid, "->", user.email);
+            } else {
+                setIsLoggedIn(false);
+                // console.log("user logged out");
+            }
+        });
+    };
+
+    useEffect(() => {
+        session();
+    }, []);
 
     return (
         <div className="container mt-5 p-5">
-            <input
-                type="file"
-                className="form-control w-50 mb-3"
-                onChange={createStorage}
-            />
-            <button className="btn btn-info ms-2" onClick={readallStorage}>
-                Read All Multimedia
+            <h1>{isLoggedIn ? "User Logged in" : "User Logged Out"}</h1>
+
+            <button className="btn btn-info ms-2" onClick={signup}>
+                Signup
             </button>
-            <button className="btn btn-warning ms-2" onClick={updateStorage}>
-                Update Multimedia
+            <button className="btn btn-warning ms-2" onClick={signin}>
+                Signin
             </button>
-            <button className="btn btn-danger ms-2" onClick={deleteStorage}>
-                Delete Multimedia
+            <button className="btn btn-danger ms-2" onClick={signout}>
+                Signout
             </button>
         </div>
     );
